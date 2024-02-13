@@ -17,8 +17,7 @@ const reports = (config, db) => ({
       // Setup query
       let query = `SELECT pkey, created_at, source,
       status, url, image_url, disaster_type, report_data, tags, title, text,
-      ST_AsBinary(the_geom), ${config.TABLE_COGNICITY_PARTNERS}.partner_code ,${config.TABLE_COGNICITY_PARTNERS}.partner_icon FROM ${config.TABLE_REPORTS}
-      LEFT JOIN ${config.TABLE_COGNICITY_PARTNERS} ON ${config.TABLE_REPORTS}.partner_code=${config.TABLE_COGNICITY_PARTNERS}.partner_code
+      ST_AsBinary(the_geom) FROM ${config.TABLE_REPORTS}
       WHERE ((disaster_type = 'flood' AND created_at >= to_timestamp($1)) 
       OR (disaster_type = 'earthquake' AND created_at >= to_timestamp($2))
       OR (disaster_type = 'wind' AND created_at >= to_timestamp($3))

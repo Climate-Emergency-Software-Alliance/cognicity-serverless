@@ -9,8 +9,8 @@ package:
 functions:
   reports:
     handler: reports/reports-main.main
-    name: ${self:service}-${opt:stage}
-    environment: ${file(./${opt:stage}.env.yml):env}
+    name: ${self:service}
+    # environment: ${file(./${opt:stage}.env.yml):env}
     vpc:
       securityGroupIds:
         - sg-019747b737ec5814c
