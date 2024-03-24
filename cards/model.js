@@ -19,8 +19,8 @@ const cards = (config, db) => ({
       // Setup query
       let network_data = body.network_data || "{}";
       let query = `INSERT INTO ${config.TABLE_GRASP_CARDS}
-    (username, network, language, received, network_data)
-    VALUES (?, ?, ?, ?, '{}') RETURNING card_id`;
+    (username, network, language, received)
+    VALUES (?, ?, ?, ?) RETURNING card_id`;
 
       // Execute
       db.query(query, {
@@ -30,7 +30,6 @@ const cards = (config, db) => ({
           body.network,
           body.language,
           false,
-          network_data,
         ],
       })
         .then((data) => {
@@ -132,7 +131,7 @@ const cards = (config, db) => ({
   // Add entry to the reports table and then update the card record accordingly
   submitReport: (card, body) =>
     new Promise(async(resolve, reject) => {
-      let partner_code = !!body.partnerCode ? body.partnerCode : null;
+      // let partner_code = !!body.partnerCode ? body.partnerCode : null;
 
       // Log queries to debugger
       //   for (let query of queries) logger.debug(query.query, query.values);
@@ -142,9 +141,9 @@ const cards = (config, db) => ({
         {
           query: `INSERT INTO ${config.TABLE_GRASP_REPORTS}
               (card_id, card_data, text, created_at, disaster_type,
-                partner_code, status,
+                status,
                 the_geom)
-              VALUES (?, ? , COALESCE(?,null),? , COALESCE(?,null), COALESCE(?,null), ?,
+              VALUES (?, ? , COALESCE(?,null),? , COALESCE(?,null), ?,
               ST_SetSRID(ST_Point(?,?),4326))`,
           type: QueryTypes.INSERT,
           replacements: [
@@ -153,7 +152,7 @@ const cards = (config, db) => ({
             body.text,
             body.created_at,
             body.disaster_type,
-            partner_code,
+            // partner_code,
             "Confirmed",
             body.location.lng,
             body.location.lat,
