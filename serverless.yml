@@ -8,19 +8,20 @@ plugins:
   - serverless-offline
 
 # Comment out this custom block if running locally
-# custom:
-#   customDomain:
-#     basePath: "${param:service}"
-#     domainName: "${env:DOMAIN_NAME}"
-#     stage: "${opt:stage}"
-#     certificateArn: "arn:aws:acm:us-east-1:803326344021:certificate/79c384d2-6262-42bc-b4f3-c6b1fd0ef8cb"
-#     createRoute53Record: true
+custom:
+  customDomain:
+    basePath: "${param:service}"
+    domainName: "${env:DOMAIN_NAME}"
+    stage: "${opt:stage}"
+    certificateArn: "arn:aws:acm:us-east-1:803326344021:certificate/84a560e2-ff3d-4f3a-80bd-5fdf01ef7ca8"
+    createRoute53Record: true
 
-service: cognicity-${env:SERVICE}-sls
+service: cognicity-tabahinaqsha-${env:SERVICE}-sls
 
 provider:
   name: aws
   region: ap-southeast-1
+  runtime: nodejs16.x
   logs:
     restApi:
       accessLogging: true

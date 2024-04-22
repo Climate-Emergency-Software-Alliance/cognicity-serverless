@@ -250,20 +250,25 @@ async function createReport(config, db, card, req, res) {
 			.then(async (data) => {
 				data.card = card
 
+				return res.status(200).json({
+					cardId: req.params.cardId,
+					created: true,
+				})
+
 				// Invokes a notifier lambda to notify the user report received
-				return invokeNotify(config, data)
-					.then(() => {
-						return res.status(200).json({
-							cardId: req.params.cardId,
-							created: true,
-						})
-					})
-					.catch(() => {
-						return res.status(200).json({
-							cardId: req.params.cardId,
-							created: true,
-						})
-					})
+				// return invokeNotify(config, data)
+				// 	.then(() => {
+				// 		return res.status(200).json({
+				// 			cardId: req.params.cardId,
+				// 			created: true,
+				// 		})
+				// 	})
+				// 	.catch(() => {
+				// 		return res.status(200).json({
+				// 			cardId: req.params.cardId,
+				// 			created: true,
+				// 		})
+				// 	})
 			})
 			.catch((err) => {
 				console.log('🚀 ~ file: cards-main.js ~ line 176 ~ createReport ~ err', err)
