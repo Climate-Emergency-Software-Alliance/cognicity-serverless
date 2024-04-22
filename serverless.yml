@@ -16,7 +16,7 @@ custom:
     certificateArn: "arn:aws:acm:us-east-1:803326344021:certificate/84a560e2-ff3d-4f3a-80bd-5fdf01ef7ca8"
     createRoute53Record: true
 
-service: cognicity-tabahinaqsha-${env:SERVICE}-sls
+service: sls-tabahinaqsha-${env:SERVICE}
 
 provider:
   name: aws
